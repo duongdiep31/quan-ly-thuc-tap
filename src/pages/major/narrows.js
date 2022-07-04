@@ -27,7 +27,7 @@ const Narrows = ({ isMobile }) => {
   const dispatch = useDispatch();
   const [hideForm, setHideForm] = useState(false);
   const [change, setChange] = useState(false);
-  const [text, setText] = useState("Thêm kỳ");
+  const [text, setText] = useState("add");
   const [form] = Form.useForm();
   const { listMajor } = useSelector((state) => state.major);
   const { listNarrow, loadings } = useSelector((state) => state.narrow);
@@ -78,7 +78,6 @@ const Narrows = ({ isMobile }) => {
         break;
       case "add":
         setHideForm(true);
-
         break;
       default:
         break;
@@ -89,6 +88,7 @@ const Narrows = ({ isMobile }) => {
     setChange({});
     form.resetFields();
     setHideForm(false);
+    setText("Thêm")
   };
   useEffect(() => {
     dispatch(getListMajor());
@@ -103,11 +103,12 @@ const Narrows = ({ isMobile }) => {
       if (text.toLowerCase() === "update") {
         dispatch(
           updateNarow({
-            ...data,
+            data: data,
+            callback: cbHandleAdd
           })
         );
       } else {
-        dispatch(createNarrows({ ...data }));
+        dispatch(createNarrows({ data:data, callback: cbHandleAdd }));
       }
       setHideForm(false);
     } catch (error) {
@@ -115,7 +116,17 @@ const Narrows = ({ isMobile }) => {
       message.error(dataErr);
     }
   };
-  // sửa ngành
+
+  const cbHandleAdd = (status, mess) => {
+    setHideForm(false);
+    if (status === 'ok') {
+      message.success(mess);
+    } else {
+      message.error(mess);
+    }
+    form.resetFields();
+    setText("add")
+  };  // sửa ngành
 
   // Huỷ form
 

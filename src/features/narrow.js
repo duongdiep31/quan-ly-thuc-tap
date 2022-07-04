@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createNarrow, getNarrow, updateNarrows } from '../API/narrow';
 export const createNarrows = createAsyncThunk('narrows/createNarrows', async (req) => {
-  const { data } = await createNarrow(req);
+  const { data } = await createNarrow(req.data);
+  req.callback(data.status, data.msg);
   return data;
 });
 export const getNarow = createAsyncThunk('narrows/getNarow', async (req, func) => {
@@ -9,7 +10,8 @@ export const getNarow = createAsyncThunk('narrows/getNarow', async (req, func) =
   return data;
 });
 export const updateNarow = createAsyncThunk('narrows/updateNarrows', async (req) => {
-  const { data } = await updateNarrows(req);
+  const { data } = await updateNarrows(req.data);
+  req.callback(data.status, data.msg)
   return data;
 });
 const narrows = createSlice({
@@ -25,7 +27,9 @@ const narrows = createSlice({
       state.loadings = true;
     });
     builder.addCase(createNarrows.fulfilled, (state, { payload }) => {
-      state.listNarrow = [payload, ...state.listNarrow];
+      if (payload.status === 'ok') {
+        state.listNarrow = [payload.data, ...state.listNarrow];
+      }
       state.loadings = false;
     });
     builder.addCase(createNarrows.rejected, (state) => {
@@ -36,8 +40,8 @@ const narrows = createSlice({
     builder.addCase(getNarow.pending, (state, { payload }) => {
       state.loadings = true;
     });
-    builder.addCase(getNarow.fulfilled, (state, action) => {
-      state.listNarrow = action.payload;
+    builder.addCase(getNarow.fulfilled, (state, { payload }) => {
+      state.listNarrow = payload;
       state.loadings = false;
     });
     builder.addCase(getNarow.rejected, (state) => {
@@ -49,9 +53,11 @@ const narrows = createSlice({
       state.loading = true;
     });
     builder.addCase(updateNarow.fulfilled, (state, { payload }) => {
-      let data = state.listNarrow.filter((item) => item._id !== payload._id);
+      if (payload.status === 'ok') {
+        let data = state.listNarrow.filter((item) => item._id !== payload.data._id);
+        state.listNarrow = [payload.data, ...data];
+      }
 
-      state.listNarrow = [payload, ...data];
       state.loading = false;
     });
     builder.addCase(updateNarow.rejected, (state) => {
