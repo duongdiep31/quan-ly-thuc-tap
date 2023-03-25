@@ -240,275 +240,282 @@ const SupportStudent = ({ studentById, listBusiness: { list }, narrow: { listNar
 					]}
 					scrollToFirstError
 				>
-					{/* {isCheck ? ( */}
-					<>
-						{check ? (
-							<>{isCheck ? <CountDownCustorm time={timeCheck} /> : ''}</>
-						) : value === 1 ? (
-							<p style={{ marginBottom: '16px' }}>
-								Thời gian đăng ký form hỗ trợ chưa mở, sinh viên vui lòng chờ thông
-								báo từ phòng QHDN
-							</p>
-						) : (
-							<p style={{ marginBottom: '16px' }}>
-								Thời gian đăng ký form tự tìm nơi thực tập chưa mở, sinh viên vui
-								lòng chờ thông báo từ phòng QHDN
-							</p>
-						)}
+					{isCheck ? (
 						<>
-							<Form.Item name="support" label="Kiểu đăng ký">
-								<Radio.Group onChange={onChange}>
-									<Radio value={1}>Nhà trường hỗ trợ</Radio>
-									<Radio value={0}>Tự tìm nơi thực tập</Radio>
-								</Radio.Group>
-							</Form.Item>
-
-							{/* {check ? ( */}
+							{check ? (
+								<>{isCheck ? <CountDownCustorm time={timeCheck} /> : ''}</>
+							) : value === 1 ? (
+								<p style={{ marginBottom: '16px' }}>
+									Thời gian đăng ký form hỗ trợ chưa mở, sinh viên vui lòng chờ
+									thông báo từ phòng QHDN
+								</p>
+							) : (
+								<p style={{ marginBottom: '16px' }}>
+									Thời gian đăng ký form tự tìm nơi thực tập chưa mở, sinh viên
+									vui lòng chờ thông báo từ phòng QHDN
+								</p>
+							)}
 							<>
-								<Form.Item
-									// name="user_code"
-									label="Mã sinh viên"
-								>
-									<p className={styles.text_form_label}>
-										{studentById.mssv.toUpperCase()}
-									</p>
+								<Form.Item name="support" label="Kiểu đăng ký">
+									<Radio.Group onChange={onChange}>
+										<Radio value={1}>Nhà trường hỗ trợ</Radio>
+										<Radio value={0}>Tự tìm nơi thực tập</Radio>
+									</Radio.Group>
 								</Form.Item>
 
-								<Form.Item label="Họ và Tên">
-									<p className={styles.text_form_label}>{studentById.name}</p>
-								</Form.Item>
-								<Form.Item
-									name="phone"
-									label="Số điện thoại"
-									rules={[
-										{
-											required: true,
-											min: 10,
-											max: 13,
-											pattern: new RegExp(
-												'(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b'
-											),
-											message: 'Vui lòng nhập đúng số điện thoại',
-										},
-									]}
-								>
-									<Input placeholder="Số điện thoại" />
-								</Form.Item>
-
-								<Form.Item
-									name="address"
-									label="Địa chỉ"
-									rules={[
-										{
-											required: true,
-											pattern: new RegExp('.*\\S+.*'),
-											message: 'Vui lòng nhập địa chỉ',
-										},
-									]}
-								>
-									<Input placeholder="Địa chỉ" />
-								</Form.Item>
-
-								<Form.Item
-									name="narrow"
-									label="Chuyên ngành"
-									rules={[
-										{
-											required: true,
-											message: 'Vui lòng chọn chuyên ngành',
-										},
-									]}
-								>
-									<Select
-										placeholder="Chọn chuyên ngành"
-										style={{
-											width: '50%',
-											marginLeft: '20px',
-										}}
-									>
-										{dataNarrow
-											// .filter((i) => i.id_majors === studentById.majors._id)
-											.map((i, k) => (
-												<Option key={k} value={i._id}>
-													{i.name}
-												</Option>
-											))}
-									</Select>
-								</Form.Item>
-
-								{value === 1 && (
-									<Form.Item
-										name="business"
-										label="Đơn vị thực tập"
-										rules={[
-											{
-												required: true,
-												message: 'Vui lòng chọn doanh nghiệp',
-											},
-										]}
-									>
-										<Select
-											style={{
-												width: '50%',
-												marginLeft: '20px',
-											}}
-											placeholder="Chọn doanh nghiệp"
-											onChange={getIdbusiness}
-										>
-											{list?.map((item) => (
-												<Option key={item._id} value={item._id}>
-													{item.name + '-' + item.internshipPosition}
-												</Option>
-											))}
-										</Select>
-									</Form.Item>
-								)}
-								<Form.Item
-									name="dream"
-									label="Vị trí thực tập"
-									rules={[
-										{
-											required: true,
-											pattern: new RegExp('.*\\S+.*'),
-											message: 'Vui lòng nhập vị trí thực tập',
-										},
-									]}
-								>
-									<Input placeholder="VD: Web Back-end, Dựng phim, Thiết kế nội thất" />
-								</Form.Item>
-								{value === 1 ? (
-									<Form.Item
-										valuePropName="upload"
-										name="upload"
-										label="Upload CV (PDF)"
-									>
-										<Upload {...props} maxCount={1}>
-											<Button
-												style={{
-													marginLeft: '20px',
-												}}
-												icon={<UploadOutlined />}
-											>
-												Click to upload
-											</Button>
-										</Upload>
-									</Form.Item>
-								) : (
+								{check ? (
 									<>
 										<Form.Item
-											name="unit"
-											className={styles.form.input}
-											label="Đơn vị thực tập"
-											rules={[
-												{
-													required: true,
-													message: 'Vui lòng nhập đơn vị thực tập',
-												},
-											]}
+											// name="user_code"
+											label="Mã sinh viên"
 										>
-											<Input placeholder="Đơn vị thực tập/Tên doanh nghiệp" />
+											<p className={styles.text_form_label}>
+												{studentById.mssv.toUpperCase()}
+											</p>
 										</Form.Item>
 
-										<Form.Item
-											name="unitAddress"
-											label="Địa chỉ thực tập"
-											rules={[
-												{
-													required: true,
-													message: 'Vui lòng nhập địa chỉ thực tập',
-												},
-											]}
-										>
-											<Input placeholder="Địa chỉ đơn vị thực tập" />
+										<Form.Item label="Họ và Tên">
+											<p className={styles.text_form_label}>
+												{studentById.name}
+											</p>
 										</Form.Item>
 										<Form.Item
-											name="taxCode"
-											label="Mã số thuế"
-											rules={[
-												{
-													required: true,
-													pattern: new RegExp('^[0-9]*$'),
-													message: 'Vui lòng nhập Mã số thuế',
-												},
-											]}
-										>
-											<Input placeholder="Mã số thuế" />
-										</Form.Item>
-
-										<Form.Item
-											name="position"
-											label="Chức vụ người tiếp nhận"
-											rules={[
-												{
-													required: true,
-													message:
-														'Vui lòng nhập chức vụ người tiếp nhận sinh viên',
-												},
-											]}
-										>
-											<Input placeholder="Chức vụ người tiếp nhận" />
-										</Form.Item>
-
-										<Form.Item
-											name="numberEnterprise"
-											label="Số điện thoại doanh nghiệp"
+											name="phone"
+											label="Số điện thoại"
 											rules={[
 												{
 													required: true,
 													min: 10,
 													max: 13,
 													pattern: new RegExp(
-														'^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$'
+														'(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b'
 													),
-													message:
-														'Vui lòng nhập Số điện thoại doanh nghiệp',
+													message: 'Vui lòng nhập đúng số điện thoại',
 												},
 											]}
 										>
-											<Input placeholder="Số điện thoại doanh nghiệp(VD:Giám đốc, Leader, Hr)" />
+											<Input placeholder="Số điện thoại" />
 										</Form.Item>
 
 										<Form.Item
-											name="emailEnterprise"
-											label="Email người tiếp nhận"
+											name="address"
+											label="Địa chỉ"
 											rules={[
 												{
 													required: true,
-													pattern: new RegExp(
-														'[a-z0-9]+@[a-z]+.[a-z]{2,3}'
-													),
-													message: 'Vui lòng nhập Email người tiếp nhận',
+													pattern: new RegExp('.*\\S+.*'),
+													message: 'Vui lòng nhập địa chỉ',
 												},
 											]}
 										>
-											<Input placeholder="Email người tiếp nhận" />
+											<Input placeholder="Địa chỉ" />
+										</Form.Item>
+
+										<Form.Item
+											name="narrow"
+											label="Chuyên ngành"
+											rules={[
+												{
+													required: true,
+													message: 'Vui lòng chọn chuyên ngành',
+												},
+											]}
+										>
+											<Select
+												placeholder="Chọn chuyên ngành"
+												style={{
+													width: '50%',
+													marginLeft: '20px',
+												}}
+											>
+												{dataNarrow
+													// .filter((i) => i.id_majors === studentById.majors._id)
+													.map((i, k) => (
+														<Option key={k} value={i._id}>
+															{i.name}
+														</Option>
+													))}
+											</Select>
+										</Form.Item>
+
+										{value === 1 && (
+											<Form.Item
+												name="business"
+												label="Đơn vị thực tập"
+												rules={[
+													{
+														required: true,
+														message: 'Vui lòng chọn doanh nghiệp',
+													},
+												]}
+											>
+												<Select
+													style={{
+														width: '50%',
+														marginLeft: '20px',
+													}}
+													placeholder="Chọn doanh nghiệp"
+													onChange={getIdbusiness}
+												>
+													{list?.map((item) => (
+														<Option key={item._id} value={item._id}>
+															{item.name +
+																'-' +
+																item.internshipPosition}
+														</Option>
+													))}
+												</Select>
+											</Form.Item>
+										)}
+										<Form.Item
+											name="dream"
+											label="Vị trí thực tập"
+											rules={[
+												{
+													required: true,
+													pattern: new RegExp('.*\\S+.*'),
+													message: 'Vui lòng nhập vị trí thực tập',
+												},
+											]}
+										>
+											<Input placeholder="VD: Web Back-end, Dựng phim, Thiết kế nội thất" />
+										</Form.Item>
+										{value === 1 ? (
+											<Form.Item
+												valuePropName="upload"
+												name="upload"
+												label="Upload CV (PDF)"
+											>
+												<Upload {...props} maxCount={1}>
+													<Button
+														style={{
+															marginLeft: '20px',
+														}}
+														icon={<UploadOutlined />}
+													>
+														Click to upload
+													</Button>
+												</Upload>
+											</Form.Item>
+										) : (
+											<>
+												<Form.Item
+													name="unit"
+													className={styles.form.input}
+													label="Đơn vị thực tập"
+													rules={[
+														{
+															required: true,
+															message:
+																'Vui lòng nhập đơn vị thực tập',
+														},
+													]}
+												>
+													<Input placeholder="Đơn vị thực tập/Tên doanh nghiệp" />
+												</Form.Item>
+
+												<Form.Item
+													name="unitAddress"
+													label="Địa chỉ thực tập"
+													rules={[
+														{
+															required: true,
+															message:
+																'Vui lòng nhập địa chỉ thực tập',
+														},
+													]}
+												>
+													<Input placeholder="Địa chỉ đơn vị thực tập" />
+												</Form.Item>
+												<Form.Item
+													name="taxCode"
+													label="Mã số thuế"
+													rules={[
+														{
+															required: true,
+															pattern: new RegExp('^[0-9]*$'),
+															message: 'Vui lòng nhập Mã số thuế',
+														},
+													]}
+												>
+													<Input placeholder="Mã số thuế" />
+												</Form.Item>
+
+												<Form.Item
+													name="position"
+													label="Chức vụ người tiếp nhận"
+													rules={[
+														{
+															required: true,
+															message:
+																'Vui lòng nhập chức vụ người tiếp nhận sinh viên',
+														},
+													]}
+												>
+													<Input placeholder="Chức vụ người tiếp nhận" />
+												</Form.Item>
+
+												<Form.Item
+													name="numberEnterprise"
+													label="Số điện thoại doanh nghiệp"
+													rules={[
+														{
+															required: true,
+															min: 10,
+															max: 13,
+															pattern: new RegExp(
+																'^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$'
+															),
+															message:
+																'Vui lòng nhập Số điện thoại doanh nghiệp',
+														},
+													]}
+												>
+													<Input placeholder="Số điện thoại doanh nghiệp(VD:Giám đốc, Leader, Hr)" />
+												</Form.Item>
+
+												<Form.Item
+													name="emailEnterprise"
+													label="Email người tiếp nhận"
+													rules={[
+														{
+															required: true,
+															pattern: new RegExp(
+																'[a-z0-9]+@[a-z]+.[a-z]{2,3}'
+															),
+															message:
+																'Vui lòng nhập Email người tiếp nhận',
+														},
+													]}
+												>
+													<Input placeholder="Email người tiếp nhận" />
+												</Form.Item>
+											</>
+										)}
+										<Form.Item {...tailFormItemLayout}>
+											<Button
+												className={styles.button2}
+												type="primary"
+												htmlType="submit"
+											>
+												{studentById?.statusCheck === 1
+													? 'Sửa thông tin'
+													: 'Đăng ký'}
+											</Button>
 										</Form.Item>
 									</>
+								) : (
+									''
 								)}
-								<Form.Item {...tailFormItemLayout}>
-									<Button
-										className={styles.button2}
-										type="primary"
-										htmlType="submit"
-									>
-										{studentById?.statusCheck === 1
-											? 'Sửa thông tin'
-											: 'Đăng ký'}
-									</Button>
-								</Form.Item>
 							</>
-							{/* ) : (
-								''
-							)} */}
 						</>
-					</>
-					{/* // ) : studentById.statusCheck === 3 ? (
-					// 	'Sinh viên đã trượt kỳ thực tập. Chúc em sẽ cố gắng hơn vào kỳ thực tập sau'
-					// ) : studentById.statusCheck === 9 ? (
-					// 	'Chúc mừng sinh viên đã hoàn thành kỳ thực tập'
-					// ) : (
-					// 	'Đăng ký thông tin thành công'
-					// )} */}
+					) : studentById.statusCheck === 3 ? (
+						'Sinh viên đã trượt kỳ thực tập. Chúc em sẽ cố gắng hơn vào kỳ thực tập sau'
+					) : studentById.statusCheck === 9 ? (
+						'Chúc mừng sinh viên đã hoàn thành kỳ thực tập'
+					) : (
+						'Đăng ký thông tin thành công'
+					)}
 				</Form>
 			</Spin>
 		</>
