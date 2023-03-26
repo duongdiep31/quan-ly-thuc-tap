@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import RegisterInternAPI from '../../API/RegisterInternAPI';
 import CountDownCustorm from '../../components/CountDownCustorm';
-import { sendMessageDevice } from '../../components/PushNotifi';
+import { sendMessageDevice } from '../../ultis/PushNotifi';
 import { getBusiness } from '../../features/businessSlice/businessSlice';
 import { getListMajor } from '../../features/majorSlice/majorSlice';
 import { getNarow } from '../../features/narrow';

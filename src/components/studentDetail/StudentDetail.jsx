@@ -21,7 +21,7 @@ import { statusConfigCV, statusConfigForm, statusConfigReport } from '../../ulti
 import './studentDetail.css';
 import { getBusiness } from '../../features/businessSlice/businessSlice';
 import { fetchManager } from '../../features/managerSlice/managerSlice';
-import { sendMessageDevice } from '../PushNotifi';
+import { sendMessageDevice } from '../../ultis/PushNotifi';
 const optionCheck = [1, 5, 8, 3];
 const { Option } = Select;
 const { TextArea } = Input;
